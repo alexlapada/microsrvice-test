@@ -21,4 +21,10 @@ public interface ArticleEntityMapper {
   })
   Article map(ArticleCreateModel model);
 
+  @Mappings({
+          @Mapping(target = "id", ignore = true),
+          @Mapping(target = "createdAt", ignore = true)
+  })
+  void fill(ArticleCreateModel model, @MappingTarget Article article);
+
 }

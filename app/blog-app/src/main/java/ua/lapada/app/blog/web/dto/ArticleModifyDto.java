@@ -3,7 +3,7 @@ package ua.lapada.app.blog.web.dto;
 import lombok.Data;
 
 @Data
-public class ArticleCreateDto {
+public class ArticleModifyDto {
     private String title;
     private String payload;
 }

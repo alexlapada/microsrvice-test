@@ -35,6 +35,15 @@ public class ArticleService {
     }
 
     @Transactional
+    public Article update(String id, ArticleCreateModel model) {
+        Article article = getById(id);
+        articleEntityMapper.fill(model, article);
+        repository.saveAndFlush(article);
+        log.info("Article with id {} updated successfully. {}", id, article);
+        return article;
+    }
+
+    @Transactional
     public void delete(String id) {
         Article article = getById(id);
         repository.delete(article);
