@@ -1,0 +1,22 @@
+version: '2.4'
+
+services:
+  db:
+    restart: on-failure
+    image: "postgres:14.1"
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_DB=blog
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+  db-test:
+    restart: on-failure
+    image: "postgres:14.1"
+    ports:
+      - "25432:5432"
+    environment:
+      - POSTGRES_DB=blog
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
