@@ -35,10 +35,12 @@ public class ErrorHandler extends DefaultHandlerExceptionResolver {
     @ResponseBody
     @ResponseStatus(UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
-    public ErrorResponseDto handleEntityNotFoundException(final BadCredentialsException exception) {
+    public ErrorResponseDto handleBadCredentialsException(final BadCredentialsException exception) {
         log.info(LOG_EXCEPTION_MSG_FORMAT, exception.getClass().getName(), exception.getMessage());
         return ErrorResponseDto.of(BAD_CREDENTIAL_MSG, exception.getMessage());
     }
+
+    @ResponseBody
     @ResponseStatus(FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     public ErrorResponseDto handleAccessDeniedException(final AccessDeniedException exception) {
