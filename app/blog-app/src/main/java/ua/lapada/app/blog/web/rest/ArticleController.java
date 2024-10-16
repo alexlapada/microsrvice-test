@@ -21,8 +21,12 @@ import ua.lapada.app.blog.security.AuthorizedUserContext;
 import ua.lapada.app.blog.service.ArticleService;
 import ua.lapada.app.blog.web.dto.ArticleModifyDto;
 import ua.lapada.app.blog.web.dto.ArticleDto;
+import ua.lapada.core.service.TtsService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDate;
 
 @RestController
@@ -35,10 +39,19 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final ArticleDtoMapper articleDtoMapper;
+    private final TtsService ttsService;
 
     @GetMapping(BY_ID_ENDPOINT)
     public ArticleDto get(@PathVariable String id) {
         return articleDtoMapper.map(articleService.getById(id));
+    }
+
+    @GetMapping("/event-test/{test}")
+    public String redirectTest(@PathVariable String test) throws IOException {
+        String jobId = "a2ec1980-35a8-4c98-b0ea-8b1a7e4a88c4";
+        String slideId = "e3890777-8c05-45d7-b696-64abb289bd53";
+        ttsService.updateAudio(test, jobId, test);
+        return "Ok";
     }
 
     @PostMapping

@@ -1,27 +1,26 @@
 version: '2.4'
 
 services:
-  db:
+  db-university:
     restart: on-failure
     image: "postgres:14.1"
     ports:
       - "15432:5432"
-#    command: [ "postgres", "-c", "logging_collector=on", "-c", "log_statement=all" ]
-    command: [ "postgres", "-c", "log_statement=all" ]
     environment:
-      - POSTGRES_DB=blog
+      - POSTGRES_DB=university
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
-  db-test:
+  db-university-test:
     restart: on-failure
     image: "postgres:14.1"
     ports:
       - "25432:5432"
     environment:
-      - POSTGRES_DB=blog
+      - POSTGRES_DB=university
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+
 
   rabbit:
     image: "rabbitmq:3-management"

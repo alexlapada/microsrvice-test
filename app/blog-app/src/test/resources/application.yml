@@ -3,7 +3,7 @@ server:
 
 database:
   host: localhost
-  port: 25432
+  port: 15432
   schema: blog
 
 eureka:
@@ -27,7 +27,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-    show-sql: true
+    show-sql: false
 
 app:
   jwt:

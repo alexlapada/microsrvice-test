@@ -1,26 +1,27 @@
 server:
-  port: 2929
+  port: 2930
 
 database:
   host: localhost
   port: 15432
   schema: blog
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:3333/eureka}
-    enabled: false
-  instance:
-    preferIpAddress: true
-
-spring:
-  application:
-    name: blog-app
+app:
   datasource:
     url: jdbc:postgresql://${database.host}:${database.port}/${database.schema}
     username: postgres
     password: password
+
+spring:
+  rabbitmq:
+    password: rabbitmq
+    username: rabbitmq
+  application:
+    name: university
+#  datasource:
+#    url: jdbc:postgresql://${database.host}:${database.port}/${database.schema}
+#    username: postgres
+#    password: password
   jpa:
     open-in-view: false
     hibernate:
@@ -35,12 +36,9 @@ spring:
             non_contextual_creation: true
     show-sql: false
 
+
 logging:
   pattern:
     level:
       org.springframework.orm.jpa: TRACE
       org.springframework.transaction: TRACE
-app:
-  jwt:
-    secret: test-secret
-    validity-time: 1 # in hours 1 hour
