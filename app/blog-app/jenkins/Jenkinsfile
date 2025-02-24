@@ -2,16 +2,12 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-
             steps {
-                withMaven(traceability: true){}
                 sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
-
             steps {
-                withMaven(traceability: true){}
                 sh 'mvn test'
             }
             post {
