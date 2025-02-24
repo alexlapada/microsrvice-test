@@ -26,7 +26,7 @@ import ua.lapada.app.blog.security.JwtAuthenticationFilter;
 @Profile("!test")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private static final String[] PUBLIC_ENDPOINT_PATTERNS = {"/authentication/**", "/", "/login/", "/register"};
+    private static final String[] PUBLIC_ENDPOINT_PATTERNS = {"/authentication/**", "/", "/login/", "/register", "/articles/**"};
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final ErrorAuthenticationEntryPoint authenticationEntryPoint;
