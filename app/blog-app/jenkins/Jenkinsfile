@@ -4,13 +4,13 @@ pipeline {
         stage('Build') {
             steps {
                 withMaven(traceability: true){}
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -f app/ -B -DskipTests clean package'
             }
         }
         stage('Test') {
             steps {
                 withMaven(traceability: true){}
-                sh 'mvn test'
+                sh 'mvn -f app/ test'
             }
             post {
                 always {
