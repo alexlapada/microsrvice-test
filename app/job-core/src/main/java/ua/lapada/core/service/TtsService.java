@@ -23,7 +23,7 @@ public class TtsService {
     private final JobHandler jobHandler;
     private final TtsJobRepository ttsJobRepository;
 
-    @Retryable(value = {ObjectOptimisticLockingFailureException.class}, backoff = @Backoff(100))
+    @Retryable(value = {ObjectOptimisticLockingFailureException.class}, backoff = @Backoff(500), maxAttempts = 5)
     public void updateAudio(String slideMetadataId, String jobId, String serverName) {
         ttsJobRepository.findById(jobId)
                         .ifPresent(ttsJob -> processAudio(slideMetadataId, ttsJob.getId(), serverName));
@@ -31,11 +31,11 @@ public class TtsService {
 
     //    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void processAudio(String slideMetadataId, String ttsJobId, String serverName) {
-        sleep(1000);
+//        sleep(1000);
         try {
             log.info("{}, Processing audio", serverName);
             jobHandler.updateMediaDuration(slideMetadataId, getDurationFromMetadata(slideMetadataId));
-            sleep(5500);
+//            sleep(5500);
             log.info("{} Verification whether Job is Converted", slideMetadataId);
             if (jobHandler.isJobConverted(ttsJobId)) {
                 log.info("{}, All related audio of {} job have been converted. slide {}", serverName, ttsJobId, slideMetadataId);

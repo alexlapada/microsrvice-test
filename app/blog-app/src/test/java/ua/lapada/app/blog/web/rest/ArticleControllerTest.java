@@ -45,20 +45,6 @@ public class ArticleControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testConcurrent() throws Exception {
-        String id = UUID.randomUUID().toString();
-        Article article = getArticle(id);
-        when(service.getById(id)).thenReturn(article);
-
-        mockMvc.perform(get(ArticleController.ENDPOINT + "/event-test/{test}", id))
-               .andExpect(status().isOk())
-               .andExpect(jsonPath("$.id", is(article.getId())));
-
-        verify(service, only()).getById(id);
-
-    }
-
-    @Test
     public void getById_NotFountException() throws Exception {
         String id = UUID.randomUUID().toString();
         doThrow(EntityNotFoundException.class).when(service).getById(id);

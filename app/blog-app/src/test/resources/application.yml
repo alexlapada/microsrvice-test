@@ -4,7 +4,7 @@ server:
 database:
   host: localhost
   port: 15432
-  schema: blog
+  schema: test
 
 eureka:
   client:
@@ -13,7 +13,7 @@ eureka:
 spring:
   datasource:
     url: jdbc:postgresql://${database.host}:${database.port}/${database.schema}
-    username: postgres
+    username: admin
     password: password
   jpa:
     open-in-view: false

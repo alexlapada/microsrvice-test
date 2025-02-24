@@ -45,19 +45,8 @@ public class JobHandler {
         boolean converted = jobRepository
                 .findByTtsJobId(ttsJobId)
                 .map(Job::isConverted)
-//                .map(presentationJob -> {
-//                    List<SlideMetadata> slides = slideMetadataRepository.findAllByJobId(presentationJob.getId());
-//                    return slides.stream().allMatch(slide -> slide.getDuration() > 0);
-//                })
                 .orElse(false);
-//        List<SlideMetadata> slides = slideMetadataRepository.findAllByJobId(jobId);
-//        boolean converted = slides.stream().allMatch(slide -> slide.getDuration() > 0);
         log.info("Converted {}", converted);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         return converted;
     }
 
@@ -77,24 +66,12 @@ public class JobHandler {
 
 //    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void updateMediaDuration(String slideId, long duration) {
-        try {
-            log.info("Updating duration");
-            slideMetadataRepository.findById(slideId).ifPresent(sm -> {
-                try {
-                    Thread.sleep(1500);
-                    sm.setDuration(duration);
-                    slideMetadataRepository.saveAndFlush(sm);
-                } catch (Exception e) {
-                    log.error("Error during updating duration for slide {}. Reason {}", slideId, e.getMessage(), e);
-                    throw new RuntimeException(e);
-                }
-            });
-            Thread.sleep(1500);
-            log.info("Duration updated");
-        } catch (Exception e) {
-            log.error("Error during updating duration for slide {}. Reason {}", slideId, e.getMessage(), e);
-        }
-
+        log.info("Updating duration");
+        slideMetadataRepository.findById(slideId).ifPresent(sm -> {
+            sm.setDuration(duration);
+            slideMetadataRepository.save(sm);
+        });
+        log.info("Duration updated");
     }
 
 //    @Transactional
